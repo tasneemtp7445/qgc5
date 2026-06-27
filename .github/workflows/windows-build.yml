@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Get code from GitHub
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         submodules: recursive
 
@@ -32,7 +32,7 @@ jobs:
       run: cmake --build build --config Release
 
     - name: Upload EXE file
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: QGroundControl-Windows
         path: build/Release/
