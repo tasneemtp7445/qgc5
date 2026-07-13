@@ -383,14 +383,37 @@ ApplicationWindow {
                             height:             toolSelectDialog._toolButtonHeight
                             Layout.fillWidth:   true
                             text:               qsTr("Application Settings")
-                            imageResource:      "/res/QGCLogoFull.svg"
-                            imageColor:         "transparent"
+                            imageResource:      "/res/Setting.svg"
+                            imageColor:         "white"
                             visible:            !QGroundControl.corePlugin.options.combineSettingsAndSetup
                             onClicked: {
                                 if (mainWindow.allowViewSwitch()) {
                                     drawer.close()
                                     mainWindow.showSettingsTool()
                                 }
+                            }
+                        }
+
+                        SubMenuButton {
+                            id: aboutButton
+                            height: toolSelectDialog._toolButtonHeight
+                            Layout.fillWidth: true
+                            text: qsTr("About IndiFlo")
+                            imageResource: "/res/if.svg"
+
+                            onClicked: {
+                                mainWindow.closeIndicatorDrawer()
+
+                                mainWindow.showMessageDialog(
+                                    qsTr("About IndiFlo"),
+                                    "IndiFlo Ground Control Station<br><br>" +
+                                    "Version: 1.0<br><br>" +
+                                    "Developed by IndiFlo Private Limited.<br><br>" +
+                                    "This Ground Control Station is designed for UAV mission planning, " +
+                                    "flight monitoring, telemetry visualization and autonomous operations.<br><br>" +
+                                    "Website: www.indiflo.com<br><br>" +
+                                    "Products: https://www.indiflo.com/productpage.html"
+                                )
                             }
                         }
 
@@ -423,7 +446,7 @@ ApplicationWindow {
                             }
 
                             QGCLabel {
-                                text:                   QGroundControl.qgcVersion
+                                text:                   "Version 1.0"
                                 font.pointSize:         ScreenTools.smallFontPointSize
                                 wrapMode:               QGCLabel.WrapAnywhere
                                 Layout.maximumWidth:    parent.width

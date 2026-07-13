@@ -178,5 +178,26 @@ Item {
             id:                     viewer3DWindow
             anchors.fill:           parent
         }
+        // Tasneem Watermark
+        Text {
+            id: watermarkText
+            text: "INDIFLO GROUND CONTROL ©"
+
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+
+            anchors.leftMargin: 20
+            anchors.bottomMargin: 20
+
+            font.family: "Segoe UI"
+            font.pixelSize: 20
+            font.bold: true
+            font.letterSpacing: 1.5
+
+            color: "white"
+            opacity: 0.85
+
+            z: 9999
+            }
     }
 }

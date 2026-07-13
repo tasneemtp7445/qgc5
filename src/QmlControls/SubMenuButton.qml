@@ -60,6 +60,7 @@ Button {
             color:                  imageColor ? imageColor : (control.setupComplete ? titleBar.color : "red")
             source:                 control.imageResource
             sourceSize:             control.sourceSize
+
         }
 
         QGCLabel {
