@@ -1,39 +1,27 @@
-/****************************************************************************
- *
- * (c) 2009-2024 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
- *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
- *
- ****************************************************************************/
-
 #include "PositionManager.h"
-#include "QGCApplication.h"
+#include "AppMessages.h"
 #include "QGCCorePlugin.h"
 #include "SimulatedPosition.h"
-// #include "DeviceInfo.h"
+// #include "QGCSensors.h"
 #include "QGCLoggingCategory.h"
 
-#include <QtCore/qapplicationstatic.h>
+#include <QtCore/QApplicationStatic>
 #include <QtCore/QPermissions>
-#include <QtPositioning/QGeoPositionInfoSource>
-#include <QtPositioning/private/qgeopositioninfosource_p.h>
 #include <QtPositioning/QNmeaPositionInfoSource>
-#include <QtQml/qqml.h>
 
-QGC_LOGGING_CATEGORY(QGCPositionManagerLog, "qgc.positionmanager.positionmanager")
+QGC_LOGGING_CATEGORY(QGCPositionManagerLog, "PositionManager.QGCPositionManager")
 
 Q_APPLICATION_STATIC(QGCPositionManager, _positionManager);
 
 QGCPositionManager::QGCPositionManager(QObject *parent)
     : QObject(parent)
 {
-    // qCDebug(QGCPositionManagerLog) << Q_FUNC_INFO << this;
+    qCDebug(QGCPositionManagerLog) << this;
 }
 
 QGCPositionManager::~QGCPositionManager()
 {
-    // qCDebug(QGCPositionManagerLog) << Q_FUNC_INFO << this;
+    qCDebug(QGCPositionManagerLog) << this;
 }
 
 QGCPositionManager *QGCPositionManager::instance()
@@ -41,14 +29,9 @@ QGCPositionManager *QGCPositionManager::instance()
     return _positionManager();
 }
 
-void QGCPositionManager::registerQmlTypes()
-{
-    (void) qmlRegisterUncreatableType<QGCPositionManager>("QGroundControl.QGCPositionManager", 1, 0, "QGCPositionManager", "Reference only");
-}
-
 void QGCPositionManager::init()
 {
-    if (qgcApp()->runningUnitTests()) {
+    if (QGC::runningUnitTests()) {
         _simulatedSource = new SimulatedPosition(this);
         _setPositionSource(QGCPositionSource::Simulated);
     } else {
@@ -121,6 +104,7 @@ void QGCPositionManager::setNmeaSourceDevice(QIODevice *device)
 void QGCPositionManager::_positionUpdated(const QGeoPositionInfo &update)
 {
     _geoPositionInfo = update;
+    _gcsPositioningError = QGeoPositionInfoSource::NoError;
 
     QGeoCoordinate newGCSPosition(_gcsPosition);
 
@@ -156,6 +140,12 @@ void QGCPositionManager::_positionUpdated(const QGeoPositionInfo &update)
     }
 
     emit positionInfoUpdated(update);
+}
+
+void QGCPositionManager::_positionError(QGeoPositionInfoSource::Error gcsPositioningError)
+{
+    qCWarning(QGCPositionManagerLog) << Q_FUNC_INFO << "Positioning error:" << gcsPositioningError;
+    _gcsPositioningError = gcsPositioningError;
 }
 
 void QGCPositionManager::_setGCSHeading(qreal newGCSHeading)
@@ -216,10 +206,9 @@ void QGCPositionManager::_setPositionSource(QGCPositionSource source)
         #if !defined(Q_OS_DARWIN) && !defined(Q_OS_IOS)
             _currentSource->setUpdateInterval(_updateInterval);
         #endif
+
         (void) connect(_currentSource, &QGeoPositionInfoSource::positionUpdated, this, &QGCPositionManager::_positionUpdated);
-        (void) connect(_currentSource, &QGeoPositionInfoSource::errorOccurred, this, [](QGeoPositionInfoSource::Error positioningError) {
-            qCWarning(QGCPositionManagerLog) << Q_FUNC_INFO << positioningError;
-        });
+        (void) connect(_currentSource, &QGeoPositionInfoSource::errorOccurred, this, &QGCPositionManager::_positionError);
 
         // (void) connect(QGCCompass::instance(), &QGCCompass::positionUpdated, this, &QGCPositionManager::_positionUpdated);
 

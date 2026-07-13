@@ -1,18 +1,13 @@
-target_sources(${CMAKE_PROJECT_NAME}
-    PRIVATE
-        QGCGeo.cc
-        QGCGeo.h
+qt_add_library(QGCGeoMath STATIC
+    QGCGeo.cc
+    QGCGeo.h
 )
-
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-#===========================================================================#
 
 CPMAddPackage(
     NAME geographiclib
-    VERSION 2.5
+    VERSION 2.7
     GITHUB_REPOSITORY geographiclib/geographiclib
-    GIT_TAG r2.5
+    GIT_TAG r2.7
     OPTIONS
         "BUILD_BOTH_LIBS OFF"
         "BUILD_DOCUMENTATION OFF"
@@ -32,6 +27,25 @@ CPMAddPackage(
     PATCHES geographiclib.patch
 )
 
-target_compile_options(GeographicLib_STATIC PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd9025>)
+if(geographiclib_ADDED)
+    qgc_disable_dependency_warnings(GeographicLib_STATIC)
+endif()
 
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE GeographicLib::GeographicLib)
+target_link_libraries(QGCGeoMath
+    PUBLIC
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Positioning
+    PRIVATE
+        GeographicLib::GeographicLib
+        QGCLogging
+)
+
+target_include_directories(QGCGeoMath
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE QGCGeoMath)
+
+add_subdirectory(Formats)
