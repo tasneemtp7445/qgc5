@@ -1,5 +1,12 @@
-# Daily Builds
+---
+title: Daily Builds
+head:
+  - - meta
+    - http-equiv: refresh
+      content: 0; url=../getting_started/download_and_install.html
+---
 
+<<<<<<< HEAD
 Daily Builds of _QGroundControl_ have the absolute latest set of [new features](../releases/daily_build_new_features.md).
 
 ::: warning
@@ -21,3 +28,6 @@ These can be downloaded from the links below (install as described in [Download 
   		- Logout and login again to enable the change to user permissions.
 - [Android](https://d176tv9ibo4jno.cloudfront.net/builds/master/QGroundControl.apk)
 - iOS currently unavailable
+=======
+This page has moved to [Download and Install](../getting_started/download_and_install.md).
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60

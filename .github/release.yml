@@ -12,9 +12,17 @@ changelog:
         - "RN: IMPROVEMENT - CUSTOM BUILD"
         - "RN: REFACTORING"
     - title: Fixes
+<<<<<<< HEAD
       labels: 
+=======
+      labels:
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60
         - "RN: BUGFIX"
         - "RN: BUGFIX - CUSTOM BUILD"
     - title: Targets
       labels:
+<<<<<<< HEAD
         - "RN: NEW BOARD SUPPORT"
+=======
+        - "RN: NEW BOARD SUPPORT"
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60

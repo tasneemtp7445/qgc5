@@ -1,20 +1,7 @@
-/****************************************************************************
- *
- * (c) 2009-2024 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
- *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
- *
- ****************************************************************************/
-
 #pragma once
 
-#include <QtCore/QLoggingCategory>
-
-Q_DECLARE_LOGGING_CATEGORY(GStreamerLog)
-Q_DECLARE_LOGGING_CATEGORY(GStreamerAPILog)
-
 class QQuickItem;
+class QVideoSink;
 class VideoReceiver;
 
 namespace GStreamer
@@ -28,12 +15,25 @@ enum VideoDecoderOptions {
     ForceVideoDecoderDirectX3D,
     ForceVideoDecoderVideoToolbox,
     ForceVideoDecoderIntel,
-    ForceVideoDecoderVulkan
+    ForceVideoDecoderVulkan,
+    ForceVideoDecoderHardware
 };
 
+void prepareEnvironment();
 bool initialize();
+bool completeInit();
+void setDebugLevel(int level);
 void *createVideoSink(QQuickItem *widget, QObject *parent = nullptr);
 void releaseVideoSink(void *sink);
 VideoReceiver *createVideoReceiver(QObject *parent = nullptr);
 
-};
+/// Connect the appsink inside @p sinkBin to @p videoSink. Returns true on success.
+bool setupAppSinkAdapter(void *sinkBin, QVideoSink *videoSink, QObject *adapterParent);
+
+/// Toggle every appsink adapter parented under @p adapterParent. Used to drop frames at
+/// the appsink while the host window is hidden/minimized — saves CPU vs. running the
+/// full decode→render path against a non-visible sink. Safe to call repeatedly; no-op
+/// when no adapters exist.
+void setAppSinkAdaptersActive(QObject *adapterParent, bool active);
+
+}

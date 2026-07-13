@@ -13,4 +13,8 @@ Releases notes are generated from the following GitHub labels qhich should be se
 * "RN: BUGFIX"
 * "RN: NEW BOARD SUPPORT"
 
+<<<<<<< HEAD
 There are also a set of the above labels which end in "- CUSTOM BUILD" which indicate the changes is associated with the custom build architecture.
+=======
+There are also a set of the above labels which end in "- CUSTOM BUILD" which indicate the changes is associated with the custom build architecture.
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60
