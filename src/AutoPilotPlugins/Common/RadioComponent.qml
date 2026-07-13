@@ -1,47 +1,40 @@
-/****************************************************************************
- *
- * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
- *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
- *
- ****************************************************************************/
-
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
 import QGroundControl
-import QGroundControl.FactSystem
 import QGroundControl.FactControls
 import QGroundControl.Controls
-import QGroundControl.ScreenTools
-import QGroundControl.Controllers
-import QGroundControl.Palette
+import QGroundControl.VehicleSetup
 
 SetupPage {
-    id:             radioPage
-    pageComponent:  pageComponent
+    id: radioPage
+    pageComponent: pageComponent
 
     Component {
         id: pageComponent
 
-        Item {
-            width:  availableWidth
-            height: Math.max(leftColumn.height, rightColumn.height)
+        RemoteControlCalibration {
+            id: remoteControlCalibration
 
-            function setupPageCompleted() {
-                controller.start()
-                updateChannelCount()
+            useDeadband: false
+
+            controller: RadioComponentController {
+                statusText: remoteControlCalibration.statusText
+                cancelButton: remoteControlCalibration.cancelButton
+                nextButton: remoteControlCalibration.nextButton
+                joystickMode: false
+
+                onThrottleReversedCalFailure: QGroundControl.showMessageDialog(radioPage, qsTr("Throttle channel reversed"), qsTr("Calibration failed. The throttle channel on your transmitter is reversed. You must correct this on your transmitter in order to complete calibration."))
             }
 
-            function updateChannelCount()
-            {
-            }
+            Component.onCompleted: controller.start()
 
-            QGCPalette { id: qgcPal; colorGroupEnabled: radioPage.enabled }
+            additionalSetupComponent: ColumnLayout {
+                spacing: ScreenTools.defaultFontPixelHeight / 2
 
+<<<<<<< HEAD
             RadioComponentController {
                 id:             controller
                 statusText:     statusText
@@ -353,89 +346,117 @@ SetupPage {
                     id:                 switchSettingsGrid
                     anchors.left:       parent.left
                     anchors.right:      parent.right
+=======
+                ColumnLayout {
+                    id: switchSettings
+                    Layout.fillWidth: true
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60
 
                     Repeater {
                         model: QGroundControl.multiVehicleManager.activeVehicle.px4Firmware ?
-                                   (QGroundControl.multiVehicleManager.activeVehicle.multiRotor ?
-                                        [ "RC_MAP_AUX1", "RC_MAP_AUX2", "RC_MAP_PARAM1", "RC_MAP_PARAM2", "RC_MAP_PARAM3"] :
-                                        [ "RC_MAP_FLAPS", "RC_MAP_AUX1", "RC_MAP_AUX2", "RC_MAP_PARAM1", "RC_MAP_PARAM2", "RC_MAP_PARAM3"]) :
-                                   0
+                                    (QGroundControl.multiVehicleManager.activeVehicle.multiRotor ?
+                                        [ "RC_MAP_AUX1", "RC_MAP_AUX2", "RC_MAP_PARAM1", "RC_MAP_PARAM2", "RC_MAP_PARAM3", "RC_MAP_PAY_SW"] :
+                                        [ "RC_MAP_FLAPS", "RC_MAP_AUX1", "RC_MAP_AUX2", "RC_MAP_PARAM1", "RC_MAP_PARAM2", "RC_MAP_PARAM3", "RC_MAP_PAY_SW"]) :
+                                    0
 
                         LabelledFactComboBox {
+<<<<<<< HEAD
                             label:               fact.shortDescription
                             fact:                controller.getParameterFact(-1, modelData)
                             indexModel:          false
+=======
+                            label: fact.shortDescription
+                            fact: controller.getParameterFact(-1, modelData)
+                            indexModel: false
+>>>>>>> 76e02ed47cfbb341a780befd7d0dc21db30a5b60
                         }
                     }
                 }
 
-                RowLayout {
-                    QGCButton {
-                        id:         bindButton
-                        text:       qsTr("Spektrum Bind")
-                        onClicked:  spektrumBindDialogComponent.createObject(mainWindow).open()
-                    }
-
-                    QGCButton {
-                        text:       qsTr("CRSF Bind")
-                        onClicked:  mainWindow.showMessageDialog(qsTr("CRSF Bind"),
-                                                                 qsTr("Click Ok to place your CRSF receiver in the bind mode."),
-                                                                 Dialog.Ok | Dialog.Cancel,
-                                                                 function() { controller.crsfBindMode() })
-                    }
-
-                    QGCButton {
-                        text:       qsTr("Copy Trims")
-                        onClicked:  mainWindow.showMessageDialog(qsTr("Copy Trims"),
-                                                                 qsTr("Center your sticks and move throttle all the way down, then press Ok to copy trims. After pressing Ok, reset the trims on your radio back to zero."),
-                                                                 Dialog.Ok | Dialog.Cancel,
-                                                                 function() { controller.copyTrims() })
-                    }
+                Rectangle {
+                    Layout.fillWidth: true
+                    implicitHeight: 1
+                    color: qgcPal.text
                 }
-            } // Column - Left Column
 
-            Item {
-                id:             columnSpacer
-                anchors.right:  rightColumn.left
-                width:          20
-            }
-
-            // Right side column
-            Column {
-                id:             rightColumn
-                anchors.top:    parent.top
-                anchors.right:  parent.right
-                width:          ScreenTools.defaultFontPixelWidth * 40
-                spacing:        ScreenTools.defaultFontPixelHeight / 2
-
-                Row {
+                RowLayout {
                     spacing: ScreenTools.defaultFontPixelWidth
 
-                    QGCRadioButton {
-                        text:       qsTr("Mode 1")
-                        checked:    controller.transmitterMode == 1
-                        onClicked:  controller.transmitterMode = 1
+                    QGCButton {
+                        id: bindButton
+                        text: qsTr("Spektrum Bind")
+                        onClicked: spektrumBindDialogFactory.open()
                     }
 
-                    QGCRadioButton {
-                        text:       qsTr("Mode 2")
-                        checked:    controller.transmitterMode == 2
-                        onClicked:  controller.transmitterMode = 2
+                    QGCButton {
+                        text: qsTr("CRSF Bind")
+                        onClicked: QGroundControl.showMessageDialog(radioPage, qsTr("CRSF Bind"),
+                                                                qsTr("Click Ok to place your CRSF receiver in the bind mode."),
+                                                                Dialog.Ok | Dialog.Cancel,
+                                                                function() { controller.crsfBindMode() })
+                    }
+
+                    QGCButton {
+                        text: qsTr("Copy Trims")
+                        onClicked: QGroundControl.showMessageDialog(radioPage, qsTr("Copy Trims"),
+                                                                qsTr("Center your sticks and move throttle all the way down, then press Ok to copy trims. After pressing Ok, reset the trims on your radio back to zero."),
+                                                                Dialog.Ok | Dialog.Cancel,
+                                                                function() { controller.copyTrims() })
                     }
                 }
 
-                Image {
-                    width:      parent.width
-                    fillMode:   Image.PreserveAspectFit
-                    smooth:     true
-                    source:     controller.imageHelp
+                QGCPopupDialogFactory {
+                    id: spektrumBindDialogFactory
+
+                    dialogComponent: spektrumBindDialogComponent
                 }
 
-                RCChannelMonitor {
-                    width:      parent.width
-                    twoColumn:  true
+                Component {
+                    id: spektrumBindDialogComponent
+
+                    QGCPopupDialog {
+                        title: qsTr("Spektrum Bind")
+                        buttons: Dialog.Ok | Dialog.Cancel
+
+                        onAccepted: { controller.spektrumBindMode(radioGroup.checkedButton.bindMode) }
+
+                        ButtonGroup { id: radioGroup }
+
+                        ColumnLayout {
+                            spacing: ScreenTools.defaultFontPixelHeight / 2
+
+                            QGCLabel {
+                                wrapMode: Text.WordWrap
+                                text: qsTr("Click Ok to place your Spektrum receiver in the bind mode.")
+                            }
+
+                            QGCLabel {
+                                wrapMode: Text.WordWrap
+                                text: qsTr("Select the specific receiver type below:")
+                            }
+
+                            QGCRadioButton {
+                                text: qsTr("DSM2 Mode")
+                                ButtonGroup.group: radioGroup
+                                property int bindMode: RadioComponentController.DSM2
+                            }
+
+                            QGCRadioButton {
+                                text: qsTr("DSMX (7 channels or less)")
+                                ButtonGroup.group: radioGroup
+                                property int bindMode: RadioComponentController.DSMX7
+                            }
+
+                            QGCRadioButton {
+                                checked: true
+                                text: qsTr("DSMX (8 channels or more)")
+                                ButtonGroup.group: radioGroup
+                                property int bindMode: RadioComponentController.DSMX8
+                            }
+                        }
+                    }
                 }
-            } // Column - Right Column
-        } // Item
-    } // Component - pageComponent
-} // SetupPage
+            }
+        }
+    }
+}
