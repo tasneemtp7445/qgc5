@@ -40,7 +40,12 @@ RowLayout {
         Layout.preferredWidth: contentWidth + vehicleMessagesIcon.width + control.spacing
         verticalAlignment:  Text.AlignVCenter
         text:               mainStatusText()
-        font.pointSize:     ScreenTools.largeFontPointSize
+
+        color: "black"
+
+        font.family: "Eurostile Extended"
+        font.pointSize: ScreenTools.largeFontPointSize
+        font.bold: false
 
         property string _commLostText:      qsTr("Comms Lost")
         property string _readyToFlyText:    qsTr("Ready To Fly")

@@ -408,7 +408,6 @@ ApplicationWindow {
                                     qsTr("About IndiFlo"),
                                     "IndiFlo Ground Control Station<br><br>" +
                                     "Version: 1.0<br><br>" +
-                                    "Developed by IndiFlo Private Limited.<br><br>" +
                                     "This Ground Control Station is designed for UAV mission planning, " +
                                     "flight monitoring, telemetry visualization and autonomous operations.<br><br>" +
                                     "Website: www.indiflo.com<br><br>" +
