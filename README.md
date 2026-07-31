@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://www.indiflo.in/images/indiflo-logo.png" alt="IndiFlo Logo" width="500">
+  <img src="https://www.indiflo.in/images/indiflo-logo.png" alt="IndiFlo Logo" width="200">
 </p>
 
 <p align="center">
