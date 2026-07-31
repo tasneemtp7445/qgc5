@@ -288,9 +288,16 @@ public:
     Q_PROPERTY(bool     mavlinkSigning              READ mavlinkSigning             NOTIFY mavlinkSigningChanged)
 
     /// Resets link status counters
+    Q_INVOKABLE void gimbalPan(float value);
+    Q_INVOKABLE void gimbalTilt(float value);
+    Q_INVOKABLE void gimbalZoom(float value);
+    Q_INVOKABLE void gimbalJoystick(float x, float y); 
+
     Q_INVOKABLE void resetCounters  ();
 
     Q_INVOKABLE void virtualTabletJoystickValue(double roll, double pitch, double yaw, double thrust);
+    
+    Q_INVOKABLE void sendTextMessage(const QString& text);
 
     /// Command vehicle to return to launch
     Q_INVOKABLE void guidedModeRTL(bool smartRTL);

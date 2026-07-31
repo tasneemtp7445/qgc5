@@ -48,6 +48,12 @@
     "default":      true
 },
 {
+    "name": "showGimbalControl",
+    "shortDescription": "Show Gimbal Control",
+    "type": "bool",
+    "defaultValue": false
+},
+{
     "name":         "showObstacleDistanceOverlay",
     "shortDesc":    "Show obstacle distance overlay on map and video.",
     "type":         "bool",

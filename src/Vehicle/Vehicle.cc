@@ -4400,3 +4400,64 @@ MAVLinkLogManager *Vehicle::mavlinkLogManager() const
 }
 
 /*---------------------------------------------------------------------------*/
+void Vehicle::sendTextMessage(const QString& text)
+{
+    if (text.trimmed().isEmpty()) {
+        return;
+    }
+
+    QString messageText = text.left(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN);
+
+    mavlink_message_t message;
+
+    QByteArray textBytes = messageText.toUtf8();
+
+    char textBuffer[MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN] = {};
+
+    memcpy(
+        textBuffer,
+        textBytes.constData(),
+        qMin(
+            textBytes.size(),
+            static_cast<int>(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN)
+        )
+    );
+
+    mavlink_msg_statustext_pack_chan(
+        static_cast<uint8_t>(MAVLinkProtocol::instance()->getSystemId()),
+        static_cast<uint8_t>(MAV_COMP_ID_MISSIONPLANNER),
+        MAVLINK_COMM_0,
+        &message,
+        MAV_SEVERITY_INFO,
+        textBuffer,
+        0,
+        0
+    );
+
+    sendMessageMultiple(message);
+}
+/*---------------------------------------------------------------------------*/
+void Vehicle::gimbalPan(float value)
+{
+    qDebug() << "Gimbal Pan =" << value;
+}
+
+/*---------------------------------------------------------------------------*/
+void Vehicle::gimbalTilt(float value)
+{
+    qDebug() << "Gimbal Tilt =" << value;
+}
+
+/*---------------------------------------------------------------------------*/
+void Vehicle::gimbalZoom(float value)
+{
+    qDebug() << "Gimbal Zoom =" << value;
+}
+
+/*---------------------------------------------------------------------------*/
+void Vehicle::gimbalJoystick(float x, float y)
+{
+    qDebug() << "Gimbal Joystick:"
+             << "X =" << x
+             << "Y =" << y;
+}

@@ -7,6 +7,7 @@
         <file alias="EurostileExtended">resources/fonts/EurostileExtended.ttf</file>
     </qresource>
     <qresource prefix="/res">
+        <file alias="gimbal.svg">resources/gimbal.svg</file>
         <file alias="if.svg">resources/if.svg</file>
         <file alias="Setting.svg">resources/Setting.svg</file>
         <file alias="action.svg">resources/action.svg</file>

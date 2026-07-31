@@ -171,6 +171,47 @@ Item {
         }
     }
 
+   Loader {
+    id: gimbalOverlay
+
+      source: "qrc:/qml/QGroundControl/FlightDisplay/GimbalOverlay.qml"
+
+    visible: QGroundControl.settingsManager.flyViewSettings.showGimbalControl.rawValue
+    active: visible
+
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+
+    anchors.rightMargin: 25
+    anchors.bottomMargin: 260
+
+    width: 170
+    height: 170
+
+    z: 101
+          }
+
+    Loader {
+        id: messageInterfaceLoader
+
+        source: "qrc:/qml/QGroundControl/FlightDisplay/MessageInterface.qml"
+
+        visible: QGroundControl.settingsManager.appSettings.messageInterface.rawValue
+
+        active: visible
+
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+
+        anchors.rightMargin: 20
+        anchors.bottomMargin: 70
+
+        width: 400
+        height: 300
+
+        z: 100
+    }
+
     FlyViewToolStrip {
         id:                     toolStrip
         anchors.leftMargin:     _toolsMargin + parentToolInsets.leftEdgeCenterInset

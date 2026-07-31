@@ -108,6 +108,13 @@
     "default":     false
 },
 {
+    "name": "messageInterface",
+    "shortDescription": "Show Message Interface",
+    "longDescription": "Show the message interface on the main Fly View.",
+    "type": "bool",
+    "defaultValue": false
+},
+{
     "name":                 "gstDebugLevel",
     "shortDesc":            "Video streaming debug",
     "longDesc":             "Sets the environment variable GST_DEBUG for all pipeline elements on boot.",

@@ -29,6 +29,8 @@ SettingsPage {
     property Fact   _virtualJoystick:                       _settingsManager.appSettings.virtualJoystick
     property Fact   _virtualJoystickAutoCenterThrottle:     _settingsManager.appSettings.virtualJoystickAutoCenterThrottle
     property Fact   _virtualJoystickLeftHandedMode:         _settingsManager.appSettings.virtualJoystickLeftHandedMode
+    property Fact   _showGimbalControl:                       _flyViewSettings.showGimbalControl
+    property Fact   _messageInterface:                      _settingsManager.appSettings.messageInterface
     property Fact   _enableMultiVehiclePanel:               _settingsManager.appSettings.enableMultiVehiclePanel
     property Fact   _showAdditionalIndicatorsCompass:       _flyViewSettings.showAdditionalIndicatorsCompass
     property Fact   _lockNoseUpCompass:                     _flyViewSettings.lockNoseUpCompass
@@ -208,6 +210,19 @@ SettingsPage {
             visible:            _virtualJoystickAutoCenterThrottle.visible
             enabled:            _virtualJoystick.rawValue
             fact:               _virtualJoystickAutoCenterThrottle
+        }
+
+        FactCheckBoxSlider {
+            Layout.fillWidth: true
+            text: qsTr("Show Message Interface")
+            visible: _messageInterface.visible
+            fact: _messageInterface
+        }
+        FactCheckBoxSlider {
+            Layout.fillWidth: true
+            text: qsTr("Show Gimbal Control")
+            visible: _showGimbalControl.visible
+            fact: _showGimbalControl
         }
 
         FactCheckBoxSlider {

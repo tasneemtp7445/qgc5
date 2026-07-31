@@ -1,0 +1,118 @@
+INDIFLO GROUND CONTROL
+THIRD-PARTY SOFTWARE NOTICES
+
+Copyright (c) 2026 IndiFlo / Tasneem Raza
+
+This product incorporates third-party software components.
+The licenses and copyright notices for those components are
+provided below.
+
+------------------------------------------------------------
+1. QGroundControl
+------------------------------------------------------------
+
+IndiFlo Ground Control is based on and/or incorporates source
+code from the QGroundControl project.
+
+QGroundControl is licensed under the GNU General Public License
+version 3 (GPL-3.0), unless otherwise stated for individual
+components.
+
+The complete GPL-3.0 license text is provided in:
+
+LICENSE-GPL
+
+For the applicable source code and license information, see:
+
+https://github.com/mavlink/qgroundcontrol
+
+------------------------------------------------------------
+2. Qt
+------------------------------------------------------------
+
+This application uses the Qt framework.
+
+Qt components may be available under the GNU Lesser General
+Public License version 3 (LGPL-3.0), GPL licenses, or other
+applicable licenses depending on the specific Qt module.
+
+Qt source code and licensing information are available from:
+
+https://www.qt.io/
+https://code.qt.io/
+
+The applicable Qt license terms must be reviewed for each
+distributed Qt component.
+
+------------------------------------------------------------
+3. Apache License 2.0 Components
+------------------------------------------------------------
+
+Certain components included in or used by the application are
+licensed under the Apache License, Version 2.0.
+
+The complete Apache License 2.0 text is provided in:
+
+LICENSE-APACHE
+
+------------------------------------------------------------
+4. MIT Licensed Components
+------------------------------------------------------------
+
+Certain third-party build and utility components are licensed
+under the MIT License.
+
+The applicable copyright notices and license terms must be
+retained in accordance with the MIT License.
+
+------------------------------------------------------------
+5. Android Build Components
+------------------------------------------------------------
+
+The Android build system includes components distributed under
+open-source licenses, including Apache License 2.0 components.
+
+Applicable license and copyright notices are retained in the
+Android build environment and/or distribution materials as
+required by their respective licenses.
+
+------------------------------------------------------------
+6. ArduPilot Parameter Repository
+------------------------------------------------------------
+
+The project includes the following Git submodule:
+
+src/FirmwarePlugin/APM/ArduPilot-Parameter-Repository
+
+The applicable license and copyright notices for this repository
+must be preserved in accordance with its own licensing terms.
+
+------------------------------------------------------------
+7. Additional Third-Party Dependencies
+------------------------------------------------------------
+
+The application may include or depend upon additional third-party
+libraries obtained through CMake, CPM, Git submodules, Qt, Android,
+GStreamer, FFmpeg, GeographicLib, zlib, and other dependency
+systems.
+
+Each dependency must be distributed in accordance with its
+applicable license.
+
+Where required by the applicable license, the corresponding
+license text, copyright notices, source code, and/or written
+offer for source code must be provided.
+
+------------------------------------------------------------
+IMPORTANT
+------------------------------------------------------------
+
+This notice file is provided for third-party license attribution.
+
+The inclusion of third-party notices does not change the license
+terms of the corresponding third-party software.
+
+IndiFlo Ground Control's own original proprietary code and branding
+may be distributed under separate proprietary terms only to the
+extent permitted by the licenses of the third-party software
+incorporated into or derived from the project.

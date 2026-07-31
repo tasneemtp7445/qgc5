@@ -395,6 +395,27 @@ ApplicationWindow {
                         }
 
                         SubMenuButton {
+
+                            text: qsTr("Gimbal Control")
+                            Layout.fillWidth:   true
+                            imageResource: "/res/gimbal.svg"
+
+                            onClicked: {
+
+                                mainWindow.closeIndicatorDrawer()
+
+                                mainWindow.showTool(
+                                    qsTr("Gimbal Control"),
+                                     "qrc:/qml/QGroundControl/FlightDisplay/GimbalControl.qml",
+                                    "/resources/gimbal.svg"
+                                )
+
+                            }
+
+                        }
+
+
+                        SubMenuButton {
                             id: aboutButton
                             height: toolSelectDialog._toolButtonHeight
                             Layout.fillWidth: true
