@@ -6,7 +6,7 @@ Contributions must be made under IndiFloGroundControl's dual-license system, und
 
 ## Apache 2.0 License
 
-The [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) License is a permissive license which allows IGC to be built and used in any environment, including proprietary applications. It allows QGC to be built for mobile app stores. When building with Apache 2.0 a commercial Qt license is required.
+The [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) License is a permissive license which allows IGC to be built and used in any environment, including proprietary applications. It allows IGC to be built for mobile app stores. When building with Apache 2.0 a commercial Qt license is required.
 
 ## GPL v3 License
 
