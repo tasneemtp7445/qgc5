@@ -298,7 +298,8 @@ public:
     Q_INVOKABLE void virtualTabletJoystickValue(double roll, double pitch, double yaw, double thrust);
     
     Q_INVOKABLE void sendTextMessage(const QString& text);
-
+    
+    Q_INVOKABLE void sendGimbalCommand(float pan, float tilt);
     /// Command vehicle to return to launch
     Q_INVOKABLE void guidedModeRTL(bool smartRTL);
 

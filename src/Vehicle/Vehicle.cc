@@ -4461,3 +4461,13 @@ void Vehicle::gimbalJoystick(float x, float y)
              << "X =" << x
              << "Y =" << y;
 }
+/*===========================================================================*/
+/*                           Gimbal Control                                  */
+/*===========================================================================*/
+
+void Vehicle::sendGimbalCommand(float pan, float tilt)
+{
+    qDebug() << "IGC Gimbal Command:"
+             << "Pan =" << pan
+             << "Tilt =" << tilt;
+}
