@@ -171,25 +171,20 @@ Item {
         }
     }
 
-   Loader {
-    id: gimbalOverlay
+Loader {
+    id: gimbalControlLoader
 
-      source: "qrc:/qml/QGroundControl/FlightDisplay/GimbalOverlay.qml"
-
-    visible: QGroundControl.settingsManager.flyViewSettings.showGimbalControl.rawValue
-    active: visible
+    active: QGroundControl.settingsManager.flyViewSettings.showGimbalControl.rawValue
+    visible: active
+    source: "GimbalControl.qml"
 
     anchors.right: parent.right
     anchors.bottom: parent.bottom
+    anchors.rightMargin: 20
+    anchors.bottomMargin: 200
 
-    anchors.rightMargin: 25
-    anchors.bottomMargin: 260
-
-    width: 170
-    height: 170
-
-    z: 101
-          }
+    z: QGroundControl.zOrderTopMost
+}
 
     Loader {
         id: messageInterfaceLoader

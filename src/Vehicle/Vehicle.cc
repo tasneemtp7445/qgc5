@@ -58,7 +58,7 @@
 #include "GimbalController.h"
 #include "MavlinkSettings.h"
 #include "APM.h"
-
+#include <mavlink.h>
 #ifdef QGC_UTM_ADAPTER
 #include "UTMSPVehicle.h"
 #include "UTMSPManager.h"
@@ -4467,7 +4467,26 @@ void Vehicle::gimbalJoystick(float x, float y)
 
 void Vehicle::sendGimbalCommand(float pan, float tilt)
 {
-    qDebug() << "IGC Gimbal Command:"
-             << "Pan =" << pan
-             << "Tilt =" << tilt;
+ qDebug() << "GIMBAL COMMAND:"
+             << "PAN"
+             << pan
+             << "TILT"
+             << tilt;
+
+    sendMavCommand(
+        defaultComponentId(),
+        MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW,
+        true,
+
+        tilt,      // pitch
+        pan,       // yaw
+
+        0,
+        0,
+
+        0,
+
+        0
+    );
+
 }
